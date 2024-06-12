@@ -1,0 +1,9 @@
+/* index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "GABRWFFR";
+  src: local("GABRWFFR"), url("@/fonts/GABRWFFR.ttf") format("truetype");
+}
