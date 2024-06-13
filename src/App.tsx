@@ -2,24 +2,39 @@ import { useEffect, useState } from "react";
 import { EpisodeType } from "./types";
 import { Paths, baseUrl, validPaths } from "./constansts";
 import { useLocation, useNavigate } from "react-router-dom";
-import "swiper/css";
-import { Swiper, SwiperSlide } from "swiper/react";
+import Slider from "./Slider";
+
+enum Status {
+  INIT = "init",
+  LOADING = "loading",
+  ERROR = "error",
+  SUCCESS = "success",
+}
 
 function App() {
   const [episode, setEpisode] = useState<EpisodeType>();
 
   const { pathname: path } = useLocation();
   const navigate = useNavigate();
+  const [status, setStatus] = useState<Status>(Status.INIT);
 
   const getData = async () => {
     try {
+      setStatus(Status.LOADING);
       const url = `${baseUrl}/${Paths.RANDOM}`;
       const res = await fetch(url);
+
+      if (!res.ok) {
+        throw new Error("Error");
+      }
+
       const data = await res.json();
 
+      setStatus(Status.SUCCESS);
       setEpisode(data);
     } catch (error) {
-      alert("error fetching");
+      setStatus(Status.ERROR);
+      alert(error);
     }
   };
 
@@ -28,10 +43,6 @@ function App() {
       getData();
     }
   }, [path]);
-
-  useEffect(() => {
-    console.log(episode?.synopsis);
-  }, [episode]);
 
   return (
     <div>
@@ -48,14 +59,14 @@ function App() {
           >
             Which episode I can see?
           </h1>
-          <div className="flex flex-col">
+          <div className="flex flex-col items-center gap-10">
             <img
               src="/assets/images/random.svg"
               alt="random episode"
               className="w-8"
               onTouchEnd={() => navigate(`/${Paths.RANDOM}`)}
             />
-            <div className="flex">
+            <div className="flex w-full justify-around">
               <img
                 src="/assets/images/laugh.svg"
                 alt="laugh episode"
@@ -77,13 +88,8 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="absolute h-[30%] w-[47%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-sm boerder-solid border-black border-4 mb-1 mr-1">
-          <img
-            src={episode?.image_url}
-            alt={episode?.title}
-            className="h-full w-full object-cover rounded-sm"
-          />
-        </div>
+
+        <Slider episode={episode!} />
       </div>
     </div>
   );
