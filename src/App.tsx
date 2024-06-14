@@ -29,6 +29,7 @@ function App() {
       }
 
       const data = await res.json();
+      console.log(data);
 
       setStatus(Status.SUCCESS);
       setEpisode(data);
@@ -88,7 +89,6 @@ function App() {
             </div>
           </div>
         </div>
-
         <Slider episode={episode!} />
       </div>
     </div>
