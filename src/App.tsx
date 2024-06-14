@@ -17,7 +17,7 @@ function App() {
   const { pathname: path } = useLocation();
   const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [status, setStatus] = useState<Status>(Status.INIT);
+  const [, setStatus] = useState<Status>(Status.INIT);
 
   const getData = async () => {
     try {
