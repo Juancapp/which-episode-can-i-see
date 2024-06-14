@@ -42,6 +42,8 @@ function App() {
   useEffect(() => {
     if (validPaths.some((validPath) => `/${validPath}` === path)) {
       getData();
+    } else if (path === "/") {
+      navigate("/randomize");
     }
   }, [path]);
 
