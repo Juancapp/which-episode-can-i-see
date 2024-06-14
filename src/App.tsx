@@ -45,6 +45,7 @@ function App() {
     } else if (path === "/") {
       navigate("/randomize");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [path]);
 
   return (
