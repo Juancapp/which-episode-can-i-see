@@ -6,3 +6,10 @@ export interface EpisodeType {
   synopsis: string;
   image_url: string;
 }
+
+export enum Status {
+  INIT = "init",
+  LOADING = "loading",
+  ERROR = "error",
+  SUCCESS = "success",
+}

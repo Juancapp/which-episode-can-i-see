@@ -1,28 +1,18 @@
 import { useEffect, useState } from "react";
-import { EpisodeType } from "./types";
-import { Paths, baseUrl, validPaths } from "./constansts";
-import { useLocation, useNavigate } from "react-router-dom";
+import { EpisodeType, Status } from "./types";
+import { Paths, baseUrl } from "./constansts";
 import Slider from "./Slider";
-
-enum Status {
-  INIT = "init",
-  LOADING = "loading",
-  ERROR = "error",
-  SUCCESS = "success",
-}
 
 function App() {
   const [episode, setEpisode] = useState<EpisodeType>();
 
-  const { pathname: path } = useLocation();
-  const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [, setStatus] = useState<Status>(Status.INIT);
+  const [status, setStatus] = useState<Status>(Status.INIT);
 
-  const getData = async () => {
+  const getData = async (path: Paths) => {
     try {
       setStatus(Status.LOADING);
-      const url = `${baseUrl}/${Paths.RANDOM}`;
+      const url = `${baseUrl}/${path}`;
       const res = await fetch(url);
 
       if (!res.ok) {
@@ -40,13 +30,8 @@ function App() {
   };
 
   useEffect(() => {
-    if (validPaths.some((validPath) => `/${validPath}` === path)) {
-      getData();
-    } else if (path === "/") {
-      navigate("/randomize");
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [path]);
+    getData(Paths.RANDOM);
+  }, []);
 
   return (
     <div>
@@ -67,7 +52,7 @@ function App() {
             src="/assets/images/random.svg"
             alt="random episode"
             className="w-8 animate-custom-bounce"
-            onTouchEnd={() => navigate(`/${Paths.RANDOM}`)}
+            onTouchEnd={() => getData(Paths.RANDOM)}
           />
           <p className="font-bold text-white mt-4 mb-2">
             O prioriza tus sentimientos
@@ -76,25 +61,25 @@ function App() {
             <img
               src="/assets/images/laugh.svg"
               alt="laugh episode"
-              className="w-8"
-              onTouchEnd={() => navigate(`/${Paths.RANDOM_LAUGH}`)}
+              className="w-8 cursor-pointer"
+              onTouchEnd={() => getData(Paths.RANDOM_LAUGH)}
             />
             <img
               src="/assets/images/crying.svg"
               alt="cry episode"
-              className="w-8"
-              onTouchEnd={() => navigate(`/${Paths.RANDOM_CRY}`)}
+              className="w-8 cursor-pointer"
+              onTouchEnd={() => getData(Paths.RANDOM_CRY)}
             />
             <img
               src="/assets/images/smile.svg"
               alt="smile episode"
-              className="w-8"
-              onTouchEnd={() => navigate(`/${Paths.RANDOM_SMILE}`)}
+              className="w-8 cursor-pointer"
+              onTouchEnd={() => getData(Paths.RANDOM_SMILE)}
             />
           </div>
         </div>
       </div>
-      <Slider episode={episode!} />
+      <Slider episode={episode!} status={status} />
     </div>
   );
 }
