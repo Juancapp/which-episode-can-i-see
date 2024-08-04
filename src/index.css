@@ -5,7 +5,7 @@
 
 @font-face {
   font-family: "GABRWFFR";
-  src: local("GABRWFFR"), url("@/fonts/GABRWFFR.ttf") format("truetype");
+  src: local("GABRWFFR"), url("/fonts/GABRWFFR.ttf") format("truetype");
 }
 
 @keyframes custom-bounce {
