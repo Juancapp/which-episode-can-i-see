@@ -15,5 +15,5 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
   },
-  base: "/vite-react-deploy/",
+  base: "/which-episode-can-i-see/",
 });
