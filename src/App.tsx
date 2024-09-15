@@ -37,7 +37,7 @@ function App() {
     <div>
       <div className="relative w-screen h-screen">
         <img
-          src="assets/images/desktop.webp"
+          src="src/assets/images/desktop.webp"
           className="absolute object-cover w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0"
         />
         <h1
@@ -49,7 +49,7 @@ function App() {
         </h1>
         <div className="flex flex-col w-full items-center gap-2 z-10 absolute top-[90%] left-1/2 transform -translate-x-1/2 -translate-y-[90%]">
           <img
-            src="/assets/images/random.svg"
+            src="src/assets/images/random.svg"
             alt="random episode"
             className="w-8 animate-custom-bounce"
             onTouchEnd={() => getData(Paths.RANDOM)}
@@ -59,19 +59,19 @@ function App() {
           </p>
           <div className="flex w-2/3 justify-around">
             <img
-              src="/assets/images/laugh.svg"
+              src="src/assets/images/laugh.svg"
               alt="laugh episode"
               className="w-8 cursor-pointer"
               onTouchEnd={() => getData(Paths.RANDOM_LAUGH)}
             />
             <img
-              src="/assets/images/crying.svg"
+              src="src/assets/images/crying.svg"
               alt="cry episode"
               className="w-8 cursor-pointer"
               onTouchEnd={() => getData(Paths.RANDOM_CRY)}
             />
             <img
-              src="/assets/images/smile.svg"
+              src="src/assets/images/smile.svg"
               alt="smile episode"
               className="w-8 cursor-pointer"
               onTouchEnd={() => getData(Paths.RANDOM_SMILE)}
